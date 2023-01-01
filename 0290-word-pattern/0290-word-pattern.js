@@ -4,18 +4,14 @@
  * @return {boolean}
  */
 var wordPattern = function(pattern, s) {
-    list = s.split(" ");
-    console.log(list);
-
-    var dic1 = {}
-    var dic2 = {}
-    if(list.length != pattern.length)return false;
-    for(var i = 0 ; i < list.length; i++){
-        if(list[i] in dic1){}
-        else dic1[list[i]]=i;
-        if(pattern[i] in dic2){}
-        else dic2[pattern[i]]=i;
-        if(dic1[list[i]] != dic2[pattern[i]])return false; 
+    s = s.split(" ");
+    if(s.length != pattern.length || new Set(s).size != new Set(pattern.split("")).size)return false;
+    const dic = {};
+    for(let i = 0 ; i < pattern.length ; i++){
+        if(dic[pattern[i]]){
+            if(dic[pattern[i]] !== s [i])return false;
+        }
+        else dic[pattern[i]] = s[i];
     }
     return true;
 };
