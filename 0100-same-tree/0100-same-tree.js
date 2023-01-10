@@ -11,8 +11,15 @@
  * @param {TreeNode} q
  * @return {boolean}
  */
-
-var isSameTree = function(p, q) {
-    return JSON.stringify(p) === JSON.stringify(q);
+var solve = function (p,q){
+    if(p === null && q === null)return true;
+    if(p === null || q === null)return false;
     
+    return (p.val === q.val && solve(p.left, q.left) && solve(p.right, q.right));
+ 
+   
+    
+}
+var isSameTree = function(p, q) {
+    return solve(p,q);    
 };
