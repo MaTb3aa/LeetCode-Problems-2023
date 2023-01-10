@@ -1,24 +1,18 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
  */
-class Solution {
-public:
-    bool solve(TreeNode* p, TreeNode* q){
-        if(!p && !q)return 1;
-        if(!p || !q)return 0;
-        if(p->val!=q->val)return false;
-        return solve(p->left,q->left) & solve(p->right,q->right);
-    }
+/**
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {boolean}
+ */
+
+var isSameTree = function(p, q) {
+    return JSON.stringify(p) === JSON.stringify(q);
     
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        return solve(p,q);
-    }
 };
