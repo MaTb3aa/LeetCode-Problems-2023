@@ -7,7 +7,6 @@ public:
         int secondLongestChain = 0;
         
         for(auto child : adj[u]){
-          
             int longestChainFromChild = dfs(child,u,len,s);
             if(s[u] == s[child])continue;
             if(longestChainFromChild > longestChain){
