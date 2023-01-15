@@ -27,7 +27,7 @@ public:
             par[i]=i;
         }
         int ans =0 ;
-        for(auto& [value,nodes] : mp){
+        for(auto& [_,nodes] : mp){
             
             for(int node : nodes){
                 for(int child : adj[node]){
@@ -37,7 +37,7 @@ public:
                 }
             }
             
-            map<int,int>freq;
+            unordered_map<int,int>freq;
             for(auto node : nodes)freq[find(node)]++;
             
             for(auto &[_,cnt] : freq){
