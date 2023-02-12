@@ -1,28 +1,39 @@
 class Solution {
 public:
     vector<vector<int>>g;
-    long long foul;
-    int dfs(int node,int par,int &seats){
-        int representatives = 1 ;
-        for(int child : g[node]){
-            if(child != par)
-                representatives+=dfs(child,node,seats);
+    long long bfs(int &n,int &seats ,vector<int>dgree){
+        vector<int>representatives(n,1);
+        queue<int>q;
+        for(int i=1;i<n;i++){
+            if(dgree[i]==1)
+                q.push(i);
         }
-        if(node){
-            foul+=(representatives+seats-1)/seats;
+        long long foul = 0;
+        while(q.size()){
+            int node = q.front();q.pop();
+            foul+=(representatives[node]+seats-1)/seats;
+            for(int child : g[node]){
+                representatives[child]+=representatives[node];
+                dgree[child]--;
+                if(child && dgree[child]==1){
+                    q.push(child);
+                }
+            }
         }
-        return representatives;
-    }
+        return foul;
+    }  
     
     long long minimumFuelCost(vector<vector<int>>& roads, int seats) {
-        int n = roads.size();
-        g = vector<vector<int>>(n+1);
-        for(int i=0;i<n;i++){
-            g[roads[i][0]].push_back(roads[i][1]);
-            g[roads[i][1]].push_back(roads[i][0]);
+        int n = roads.size()+1;
+        g = vector<vector<int>>(n);
+        vector<int>dgree(n);
+        for(auto node : roads){
+            g[node[0]].push_back(node[1]);
+            g[node[1]].push_back(node[0]);
+            dgree[node[1]]++;
+            dgree[node[0]]++;
         }
-        dfs(0,-1,seats);
-        return  foul;
+        return  bfs(n,seats,dgree);
       
        
     }
