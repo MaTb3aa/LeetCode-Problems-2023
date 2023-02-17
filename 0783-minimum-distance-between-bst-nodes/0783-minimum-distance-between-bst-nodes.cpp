@@ -11,18 +11,18 @@
  */
 class Solution {
 public:
-    vector<int>v;
+    TreeNode* pre=nullptr;
+            int ans = 1e9;
+
     void solve(TreeNode* root){
         if(!root)return ;
         solve(root->left);
-        v.push_back(root->val);
-
+        if(pre!=nullptr)ans=min(ans,abs(root->val - pre->val));
+        pre=root;
         solve(root->right);
     }
     int minDiffInBST(TreeNode* root) {
         solve(root);
-        int ans = 1e9;
-        for(int i=1;i<v.size();i++)ans=min(ans,v[i]-v[i-1]);
         return ans;
     }
 };
