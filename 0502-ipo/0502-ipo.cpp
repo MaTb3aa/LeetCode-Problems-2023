@@ -2,7 +2,8 @@ class Solution {
 public:
     
     int findMaximizedCapital(int k, int w, vector<int>& profits, vector<int>& capital) {
-        set<pair<int,int>>stProfit,stCapital;
+        set<pair<int,int>>stCapital;
+        
         priority_queue<pair<int,int>>pr;
         for(int i = 0 ; i < profits.size();i++){
             if(capital[i]<=w){
