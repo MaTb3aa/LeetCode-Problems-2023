@@ -10,25 +10,27 @@
  */
 class Solution {
 public:
-    struct Compare {
-    bool operator() (const ListNode* a, const ListNode* b) const {
-        return a->val < b->val;
+   ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+    if (!l1) return l2;
+    if (!l2) return l1;
+    if (l1->val < l2->val) {
+        l1->next = mergeTwoLists(l1->next, l2);
+        return l1;
+    } else {
+        l2->next = mergeTwoLists(l1, l2->next);
+        return l2;
     }
-};
-    ListNode* mergeKLists(vector<ListNode*>& lists) {
-        multiset<ListNode*, Compare> s;
-        for (auto head : lists) {
-            while (head) {
-                s.insert(head);
-                head = head->next;
-            }
-        }
-        ListNode* dummy = new ListNode(0);
-        ListNode* tail = dummy;
-        for (auto node : s) {
-            tail->next = node;
-            tail = node;
-        }
-        return dummy->next;
-    }
+}
+
+ListNode* mergeKLists(vector<ListNode*>& lists) {
+    int n = lists.size();
+    if (n == 0) return NULL;
+    if (n == 1) return lists[0];
+    int mid = n / 2;
+    vector<ListNode*> left(lists.begin(), lists.begin() + mid);
+    vector<ListNode*> right(lists.begin() + mid, lists.end());
+    ListNode* l1 = mergeKLists(left);
+    ListNode* l2 = mergeKLists(right);
+    return mergeTwoLists(l1, l2);
+}
 };
