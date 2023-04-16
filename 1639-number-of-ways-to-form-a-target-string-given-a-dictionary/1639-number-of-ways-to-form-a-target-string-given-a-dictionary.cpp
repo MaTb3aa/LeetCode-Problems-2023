@@ -1,33 +1,41 @@
 class Solution {
 public:
     int n,m,sz;
-    int dp[1001][1001];
     vector<vector<int>>freq;
     const int mod = 1e9+7;
+    int dp[1001][1001];
     int solve(int i,int k,vector<string>& words, string& target){
         if(i==n)return 1;
         if(k==m)return 0;
+        
         int &ret = dp[i][k];
         if(~ret)return ret;
         ret = 0 ;
         ret += solve(i,k+1,words,target)%mod;
-        int cnt = freq[k][target[i]-'a'];
-        if (cnt) 
-            ret+=(1LL*solve(i+1,k+1,words,target)*cnt)%mod;
-        return ret;
+        
+        char ch = target[i];
+        
+        int cnt = freq[k][ch-'a'];
+        if(cnt>0)
+            ret += (((1LL * cnt)%mod) * (solve(i+1,k+1,words,target)%mod))%mod;
+        
+        return ret%mod;
+        
     }
+    
     int numWays(vector<string>& words, string target) {
-        n = target.size();
-        m = words[0].size();
-        sz = words.size();
+        n = target.size(); // string 
+        m = words[0].size();   //string
+        int sz = words.size();
+        
         freq = vector<vector<int>>(m,vector<int>(26));
-
+        
         for(auto word : words){
-            for(int k = 0 ; k  < m ; k++)
-                freq[k][word[k]-'a']++;
+            for(int i = 0 ; i < word.size();i++){
+                freq[i][word[i]-'a']++;
+            }
         }
-
         memset(dp,-1,sizeof dp);
-        return solve(0,0,words,target)%mod;
+        return solve(0,0,words,target);
     }
 };
