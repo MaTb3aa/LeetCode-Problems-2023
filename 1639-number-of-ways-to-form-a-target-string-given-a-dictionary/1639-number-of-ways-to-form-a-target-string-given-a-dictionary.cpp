@@ -13,7 +13,7 @@ public:
         ret += solve(i,k+1,words,target)%mod;
         int cnt = freq[k][target[i]-'a'];
         if (cnt) 
-            ret+=(1LL*(solve(i+1,k+1,words,target)%mod)*cnt)%mod;
+            ret+=(1LL*solve(i+1,k+1,words,target)*cnt)%mod;
         return ret%mod;
     }
     int numWays(vector<string>& words, string target) {
