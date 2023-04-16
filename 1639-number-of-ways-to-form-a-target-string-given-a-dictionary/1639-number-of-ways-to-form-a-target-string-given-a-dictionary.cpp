@@ -17,7 +17,7 @@ public:
         
         int cnt = freq[k][ch-'a'];
         if(cnt>0)
-            ret += (((1LL * cnt)%mod) * (solve(i+1,k+1,words,target)%mod))%mod;
+            ret += (((1LL * cnt)) * (solve(i+1,k+1,words,target)))%mod;
         
         return ret%mod;
         
