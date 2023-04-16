@@ -14,7 +14,7 @@ public:
         int cnt = freq[k][target[i]-'a'];
         if (cnt) 
             ret+=(1LL*solve(i+1,k+1,words,target)*cnt)%mod;
-        return ret%mod;
+        return ret;
     }
     int numWays(vector<string>& words, string target) {
         n = target.size();
@@ -28,6 +28,6 @@ public:
         }
 
         memset(dp,-1,sizeof dp);
-        return solve(0,0,words,target);
+        return solve(0,0,words,target)%mod;
     }
 };
