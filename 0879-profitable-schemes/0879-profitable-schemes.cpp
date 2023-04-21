@@ -10,13 +10,13 @@ public:
         if(~ret)return ret;
 
         ret = 0;
-        ret += solve(idx+1,RemN,Remprofit,group,profit)%mod ;
+        ret += solve(idx+1,RemN,Remprofit,group,profit)%mod;
         ret += solve(idx+1,RemN-group[idx],max(0,Remprofit-profit[idx]),group,profit)%mod;
-        return ret%mod;
+        return ret;
     }
     int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
         sz = group.size();
         memset(dp,-1,sizeof dp);
-        return solve(0,n,minProfit,group,profit);
+        return solve(0,n,minProfit,group,profit)%mod;
     }
 };
