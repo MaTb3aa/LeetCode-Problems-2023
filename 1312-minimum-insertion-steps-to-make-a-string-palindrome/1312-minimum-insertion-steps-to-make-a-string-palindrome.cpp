@@ -3,7 +3,6 @@ public:
     int dp[505][505];
     int solve(int i,int j,string &s){
         if(i>=j)return 0;
-        if(i+1==j)return s[i] != s[j];
         int &ret = dp[i][j];
         if(~ret)return ret;
         ret = 1e9;
