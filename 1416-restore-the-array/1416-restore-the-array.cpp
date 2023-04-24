@@ -1,24 +1,28 @@
 class Solution {
 public:
     int n;
-    const int mod = 1e9+7;
-    int dp[100005];
-    int solve(int idx,string &s,int &k){
-        if(idx==n)return 1;
-        int &ret = dp[idx];
+    const int  mod = 1e9+7;
+    int dp [100005];
+    int solve(int start,string &s, int &k){
+        if(start==n) return 1; 
+        
+        int &ret = dp[start];
         if(~ret)return ret;
         ret = 0;
-        long long cur = 0 ;
-        for(int i = idx; i < n ;i++){
-            cur = cur * 10 + (s[i]-'0');
-            if(cur< 1 || cur > k)break;
-            ret= (ret + (solve(i+1,s,k))%mod)%mod;
+        long long curDigit = 0;
+        
+        for(int end = start ; end < n ; end++){
+             curDigit = (curDigit * 10) + (s[end]-'0');
+             if(curDigit > k || curDigit < 1 )break;
+             ret = (ret%mod + solve(end+1,s,k)%mod) %mod ;
         }
+        
         return ret%mod;
     }
     int numberOfArrays(string s, int k) {
-        n = s.size();
+       n = s.size();
         memset(dp,-1,sizeof dp);
-        return solve(0,s,k);
+       return solve(0,s,k);
+        
     }
 };
